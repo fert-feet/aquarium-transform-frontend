@@ -114,7 +114,6 @@
 </template>
 
 <script>
-import md5 from 'md5'
 import TwoStepCaptcha from '@/components/tools/TwoStepCaptcha'
 import { mapActions } from 'vuex'
 import { timeFix } from '@/utils/util'
@@ -168,6 +167,7 @@ export default {
     },
     handleTabClick (key) {
       this.customActiveKey = key
+      console.log('key', this.customActiveKey)
       // this.form.resetFields()
     },
     handleSubmit (e) {
@@ -188,8 +188,10 @@ export default {
           console.log('login form', values)
           const loginParams = { ...values }
           delete loginParams.username
+          console.log(loginParams)
           loginParams[!state.loginType ? 'email' : 'username'] = values.username
-          loginParams.password = md5(values.password)
+          // md5加密暂时不用
+          loginParams.password = values.password
           Login(loginParams)
             .then((res) => this.loginSuccess(res))
             .catch(err => this.requestFailed(err))

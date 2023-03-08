@@ -46,6 +46,7 @@ export const asyncRouterMap = [
       // forms
       {
         path: '/form',
+        hidden: true,
         redirect: '/form/base-form',
         component: RouteView,
         meta: { title: 'menu.form', icon: 'form', permission: ['form'] },
@@ -73,6 +74,7 @@ export const asyncRouterMap = [
       // list
       {
         path: '/list',
+        hidden: true,
         name: 'list',
         component: RouteView,
         redirect: '/list/table-list',
@@ -126,10 +128,26 @@ export const asyncRouterMap = [
           }
         ]
       },
-
+      {
+        path: '/list',
+        name: 'list',
+        component: RouteView,
+        redirect: '/list/staff-list',
+        meta: { title: '管理列表', icon: 'table', permission: ['table'] },
+        children: [
+          {
+            path: '/list/staff-list/',
+            name: 'staffList',
+            // hideChildrenInMenu: true, // 强制显示 MenuItem 而不是 SubMenu
+            component: () => import('@/views/list/StaffList.vue'),
+            meta: { title: '员工管理', keepAlive: true, permission: ['table'] }
+          }
+        ]
+      },
       // profile
       {
         path: '/profile',
+        hidden: true,
         name: 'profile',
         component: RouteView,
         redirect: '/profile/basic',
@@ -153,6 +171,7 @@ export const asyncRouterMap = [
       // result
       {
         path: '/result',
+        hidden: true,
         name: 'result',
         component: RouteView,
         redirect: '/result/success',
@@ -177,6 +196,7 @@ export const asyncRouterMap = [
       {
         path: '/exception',
         name: 'exception',
+        hidden: true,
         component: RouteView,
         redirect: '/exception/403',
         meta: { title: 'menu.exception', icon: 'warning', permission: ['exception'] },
@@ -205,6 +225,7 @@ export const asyncRouterMap = [
       // account
       {
         path: '/account',
+        hidden: true,
         component: RouteView,
         redirect: '/account/center',
         name: 'account',

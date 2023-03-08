@@ -57,6 +57,32 @@ request.interceptors.response.use((response) => {
   return response.data
 }, errorHandler)
 
+request.interceptors.response.use((response) => {
+  console.log('res', response)
+  if (response.code !== 200) {
+    notification.error({
+      message: '服务器错误',
+      description: response.msg,
+      duration: 3
+    })
+  } else {
+    notification.success({
+      message: '操作成功',
+      duration: 3
+    })
+  }
+  return response
+}, error => {
+  console.log('err' + error) // for debug
+  notification.error({
+    message: '错误',
+    description: error.message,
+    duration: 3
+  })
+  return Promise.reject(error)
+}
+)
+
 const installer = {
   vm: {},
   install (Vue) {
